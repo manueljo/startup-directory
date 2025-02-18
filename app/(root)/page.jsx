@@ -1,26 +1,17 @@
 import React from "react";
 import SearchForm from "../../components/SearchForm";
 import StartupCard from "@/components/StartupCard";
-import { client } from "@/sanity/lib/client";
 import { STARTUPS_QUERY } from "@/sanity/lib/queries";
+import { sanityFetch, SanityLive } from "@/sanity/lib/live";
 
 const Home = async ({ searchParams }) => {
   const query = (await searchParams).query;
 
-  const posts = await client.fetch(STARTUPS_QUERY);
+  // const posts = await client.fetch(STARTUPS_QUERY);
+  const {data: posts} = await sanityFetch({STARTUPS_QUERY});
+
   console.log(JSON.stringify(posts, null, 2));
-  // const posts = [
-  //   {
-  //     _createdAt: new Date(),
-  //     views: 55,
-  //     author: { _id: 1, name: 'Manuel' },
-  //     _id: 1,
-  //     description: "A new way to connect with entrepreneurs",
-  //     image: "https://cdn.sanity.io/images/3z4z5x8j/production/1b1",
-  //     category: "Robots",
-  //     title: "We Robots",
-  //   },
-  // ];
+
   return (
     <>
       <section className="pink_container">
@@ -50,6 +41,7 @@ const Home = async ({ searchParams }) => {
           }
         </ul>
       </section>
+      <SanityLive />
     </>
   );
 };
