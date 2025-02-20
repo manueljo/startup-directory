@@ -6,9 +6,9 @@ import { sanityFetch, SanityLive } from "@/sanity/lib/live";
 
 const Home = async ({ searchParams }) => {
   const query = (await searchParams).query;
-
+  const params = {search: query || null};
   // const posts = await client.fetch(STARTUPS_QUERY);
-  const {data: posts} = await sanityFetch({STARTUPS_QUERY});
+  const {data: posts} = await sanityFetch({STARTUPS_QUERY, params});
 
   console.log(JSON.stringify(posts, null, 2));
 
